@@ -1,0 +1,19 @@
+
+> Task :customBuild
+up to date in 7.008s
+
+> Task :webpack
+
+> SpringAppVersion2@0.0.1-SNAPSHOT watch /home/tempuser/Desktop/SpringAppVersion2
+> webpack --watch -d
+
+Hash: a00ece88ec0793aa4133
+Version: webpack 4.29.6
+Time: 2606ms
+Built at: 03/16/2019 2:06:28 AM
+                                      Asset      Size  Chunks             Chunk Names
+./src/main/resources/static/built/bundle.js  2.21 MiB    main  [emitted]  main
+Entrypoint main = ./src/main/resources/static/built/bundle.js
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 472 bytes {main} [built]
+[./src/main/js/app.js] 4.72 KiB {main} [built]
+    + 11 hidden modules
