@@ -81,6 +81,7 @@ public class AuthController {
     user.setPassword(signUpRequest.getPassword());
     user.setUserEmail(signUpRequest.getUserEmail());
     user.setUserName(signUpRequest.getUserName());
+    user.setTotalBookingsPossible(1);
 
     user.setPassword(passwordEncoder.encode(user.getPassword()));
 

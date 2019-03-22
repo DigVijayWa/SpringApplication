@@ -160,6 +160,7 @@ public class PoolTableService {
   private PoolTableResultObject getPoolTableResultObject(PoolTable poolTable) {
     PoolTableResultObject poolTableResultObject = new PoolTableResultObject();
 
+    poolTableResultObject.setPoolId(poolTable.getId());
     poolTableResultObject.setPoolName(poolTable.getPoolName());
     poolTableResultObject.setPoolCondition(poolTable.getPoolCondition());
     poolTableResultObject.setFloorNo(poolTable.getFloorNo());

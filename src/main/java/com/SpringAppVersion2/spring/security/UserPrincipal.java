@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
+
   private Long id;
 
   private String username;
@@ -24,7 +25,8 @@ public class UserPrincipal implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+  public UserPrincipal(Long id, String username, String email, String password,
+      Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -91,8 +93,12 @@ public class UserPrincipal implements UserDetails {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     UserPrincipal that = (UserPrincipal) o;
     return Objects.equals(id, that.id);
   }

@@ -35,7 +35,8 @@ public class PoolTableController {
 
   @RequestMapping(value = "/api/pool-table/book-pool-table/{userId}/{poolId}/{startTime}")
   @ResponseBody
-  public Result bookPoolTableWithUserIdPoolIdAndStartTime(@PathVariable Long userId, @PathVariable Long poolId, @PathVariable int startTime) {
-    return poolTableService.bookPoolTableWithUserIdPoolIdAndStartTime(userId,poolId,startTime);
+  public Result bookPoolTableWithUserIdPoolIdAndStartTime(@PathVariable Long userId,
+      @PathVariable Long poolId, @PathVariable int startTime) {
+    return poolTableService.bookPoolTableWithUserIdPoolIdAndStartTime(userId, poolId, startTime);
   }
 }

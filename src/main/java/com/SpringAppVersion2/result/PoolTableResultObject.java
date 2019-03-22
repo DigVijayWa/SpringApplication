@@ -3,66 +3,76 @@ package com.SpringAppVersion2.result;
 // a simple POJO class to store all the required fields to display on the frontend.
 public class PoolTableResultObject {
 
-    private String poolName;
+  private Long poolId;
 
-    private String poolCondition;
+  private String poolName;
 
-    private int buildingNo;
+  private String poolCondition;
 
-    private String buildingName;
+  private int buildingNo;
 
-    private int floorNo;
+  private String buildingName;
 
-    private String status;
+  private int floorNo;
 
-    public PoolTableResultObject() { }
+  private String status;
 
-    public String getPoolName() {
-        return poolName;
-    }
+  public PoolTableResultObject() {
+  }
 
-    public void setPoolName(String poolName) {
-        this.poolName = poolName;
-    }
+  public String getPoolName() {
+    return poolName;
+  }
 
-    public String getPoolCondition() {
-        return poolCondition;
-    }
+  public void setPoolName(String poolName) {
+    this.poolName = poolName;
+  }
 
-    public void setPoolCondition(String poolCondition) {
-        this.poolCondition = poolCondition;
-    }
+  public String getPoolCondition() {
+    return poolCondition;
+  }
 
-    public int getBuildingNo() {
-        return buildingNo;
-    }
+  public void setPoolCondition(String poolCondition) {
+    this.poolCondition = poolCondition;
+  }
 
-    public void setBuildingNo(int buildingNo) {
-        this.buildingNo = buildingNo;
-    }
+  public int getBuildingNo() {
+    return buildingNo;
+  }
 
-    public int getFloorNo() {
-        return floorNo;
-    }
+  public void setBuildingNo(int buildingNo) {
+    this.buildingNo = buildingNo;
+  }
 
-    public void setFloorNo(int floorNo) {
-        this.floorNo = floorNo;
-    }
+  public int getFloorNo() {
+    return floorNo;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public void setFloorNo(int floorNo) {
+    this.floorNo = floorNo;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public String getBuildingName() {
-        return buildingName;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
-    }
+  public String getBuildingName() {
+    return buildingName;
+  }
 
+  public void setBuildingName(String buildingName) {
+    this.buildingName = buildingName;
+  }
+
+  public Long getPoolId() {
+    return poolId;
+  }
+
+  public void setPoolId(Long poolId) {
+    this.poolId = poolId;
+  }
 }
