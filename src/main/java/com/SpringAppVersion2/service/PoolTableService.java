@@ -77,7 +77,9 @@ public class PoolTableService {
 
     return poolTableResultObjects;
   }
-
+  /*
+    This method books the pool table with userId, PoolId, and startTime
+   */
   public Result bookPoolTableWithUserIdPoolIdAndStartTime(Long userId, Long poolId, int startTime) {
 
     Result result = new Result();
@@ -125,6 +127,8 @@ public class PoolTableService {
     userPoolTable.setUser(user);
     userPoolTable.setId(userPoolTableKey);
     userPoolTable.setStartTime(startTime);
+    int endTime = (startTime + 1) > 12 ? (startTime+1)-12 : (startTime+1);
+    userPoolTable.setEndTime(endTime);
 
     UserPoolTable userPoolTable1 = userPoolTableRepository.save(userPoolTable);
 
@@ -160,6 +164,7 @@ public class PoolTableService {
   private PoolTableResultObject getPoolTableResultObject(PoolTable poolTable) {
     PoolTableResultObject poolTableResultObject = new PoolTableResultObject();
 
+    poolTableResultObject.setPoolId(poolTable.getId());
     poolTableResultObject.setPoolName(poolTable.getPoolName());
     poolTableResultObject.setPoolCondition(poolTable.getPoolCondition());
     poolTableResultObject.setFloorNo(poolTable.getFloorNo());
