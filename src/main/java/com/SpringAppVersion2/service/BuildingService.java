@@ -15,6 +15,8 @@ public class BuildingService {
     @Autowired
     BuildingRepository buildingRepository;
 
+
+    //This method fetches the floor count of the building
     public BuildingResultObject fetchFloorCountOfBuilding(Long buildingId) {
 
         Building building = buildingRepository.getOne(buildingId);
@@ -30,6 +32,7 @@ public class BuildingService {
         return buildingResultObject;
     }
 
+    //This method fetches all the building list
     public List<BuildingResultObject> fetchBuildingList() {
         List<Building> buildingList = buildingRepository.findAll();
 
@@ -47,6 +50,7 @@ public class BuildingService {
         return buildingResultObjectList;
 
     }
+
     private BuildingResultObject setBuildingResultObject(Building building) {
 
         BuildingResultObject buildingResultObject = new BuildingResultObject();

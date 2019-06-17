@@ -23,6 +23,7 @@ public class UserService {
     }
     return userResultObject;
   }
+
   private UserResultObject setUserResultObject(User user) {
 
     UserResultObject userResultObject = new UserResultObject();

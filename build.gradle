@@ -15,24 +15,6 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
-
-node {
-	version = '11.6.0'
-	npmVersion = '6.5.0'
-	download = true
-	workDir = file("${project.buildDir}/node")
-	nodeModulesDir = file("${project.projectDir}")
-}
-
-task customBuild(type : NpmTask) {
-	args = ['install']
-}
-task webpack(type: NpmTask) {
-	args = ['run','watch']
-}
-
-webpack.dependsOn 'customBuild'
-
 repositories {
 	mavenCentral()
 }

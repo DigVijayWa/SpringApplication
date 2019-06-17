@@ -2,10 +2,6 @@ package com.SpringAppVersion2.payload;
 
 import javax.validation.constraints.*;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-
 public class SignUpRequest {
 
     private Long userId;

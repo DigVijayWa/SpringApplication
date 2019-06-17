@@ -86,13 +86,13 @@ public class PoolTableService {
 
     PoolTable poolTable = poolTableRepository.getOne(poolId);
 
-    if (poolTable == null) {
+    if (poolTable == null ) {
       result.setMessage(Message.CREATE_FAILURE);
     }
 
     User user = userRepository.getOne(userId);
 
-    if (user == null) {
+    if (user == null || user.getTotalBookingsPossible() <= 0) {
       result.setMessage(Message.CREATE_FAILURE);
     }
 
@@ -108,10 +108,10 @@ public class PoolTableService {
 
       if (userPoolTable == null) {
         result.setMessage(Message.CREATE_FAILURE);
+      }else {
+        userRepository.updateBookingCount(user.getId(), (user.getTotalBookingsPossible()-1));
+        result.setMessage(Message.CREATE_SUCCESS);
       }
-
-      result.setMessage(Message.CREATE_SUCCESS);
-
       return result;
     }
   }
