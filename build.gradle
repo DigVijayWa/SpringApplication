@@ -2,6 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.1.3.RELEASE'
 	id 'java'
 	id "com.moowork.node" version "1.2.0"
+	id 'maven'
+	id "com.github.pivotalservices.cf-app" version "2.3.0-rc.2"
+	id "war"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -17,6 +20,29 @@ configurations {
 }
 repositories {
 	mavenCentral()
+	mavenLocal()
+}
+
+cfConfig {
+	//CF Details
+	ccHost = "api.cf.sap.hana.ondemand.com"
+	ccUser = "I353455"
+	ccPassword = "bleeh"
+	org = "I353455trial_trial"
+	space = "dev"
+
+	//Proxy settings (optional)
+
+	//App Details (will override manifest defaults)
+	name = "spring-pool-application-java"
+	filePath = "build/libs/SpringAppVersion2-0.0.1-SNAPSHOT.jar"
+	instances = 1
+	memory = 1024
+
+	//Env and services
+	buildpack = "https://github.com/cloudfoundry/java-buildpack.git"
+	environment = ["JAVA_OPTS": "-Djava.security.egd=file:/dev/./urandom", "SPRING_PROFILES_ACTIVE": "cf"]
+	services  = ["instance001"]
 }
 
 dependencies {
@@ -26,7 +52,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.0.RELEASE'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+	compile 'commons-lang:commons-lang:2.3'
 
+
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-cloudfoundry-connector', version: '2.0.6.RELEASE'
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-spring-service-connector', version: '2.0.6.RELEASE'
+	compile group: 'com.sap.hana.cloud', name: 'spring-cloud-cloudfoundry-hana-service-connector', version: '1.0.4.RELEASE'
+	implementation "com.sap.db:ngdbc:2.3.7"
 
 
 

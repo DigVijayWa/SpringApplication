@@ -54,7 +54,7 @@ public class ProfileController {
 
     Match match = new Match();
 
-    match.setId(random.nextLong());
+    match.setId((long)(Math.floor(Math.random()*1000000)+1000000));
     match.setMatchDate(matchDate1);
     match.setMatchType(matchType1);
     match.setTeamOne(teamOne);
@@ -67,10 +67,10 @@ public class ProfileController {
   }
 
   //api to display all the matches under a user
-  @RequestMapping(value = "/api/match/display-all/{userId}")
+  @RequestMapping(value = "/api/match/display-all/{userName}")
   @ResponseBody
-  public List<MatchResultObject> displayAllMatchesForUser(@PathVariable Long userId) {
-    return matchService.displayAllMatches(userId);
+  public List<MatchResultObject> displayAllMatchesForUser(@PathVariable String userName) {
+    return matchService.displayAllMatches(userName);
   }
 
   //api to add a winner

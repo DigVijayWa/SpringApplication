@@ -18,11 +18,11 @@ public class PoolTableController {
   @Autowired
   PoolTableService poolTableService;
 
-  @RequestMapping(value = "/api/pool-table/get-all-available/{startTime}")
+  @RequestMapping(value = "/api/pool-table/get-all-available/{startTime}/{bookingDate}")
   @ResponseBody
   public List<PoolTableResultObject> getAllAvailablePoolTableWithTimeSlot(
-      @PathVariable int startTime) {
-    return poolTableService.getAllAvailablePoolTablesWithInputTime(startTime);
+      @PathVariable int startTime, @PathVariable String bookingDate) {
+    return poolTableService.getAllAvailablePoolTablesWithInputTime(startTime,bookingDate);
   }
 
   @RequestMapping(value = "/api/pool-table/get-specific-available/{buildingId}/{floorNo}/{startTime}")
@@ -33,10 +33,10 @@ public class PoolTableController {
         .getPoolTableBasedOnBuildingIdFloorNoTimeSlot(buildingId, floorNo, startTime);
   }
 
-  @RequestMapping(value = "/api/pool-table/book-pool-table/{userId}/{poolId}/{startTime}")
+  @RequestMapping(value = "/api/pool-table/book-pool-table/{userId}/{poolId}/{startTime}/{bookingDate}")
   @ResponseBody
   public Result bookPoolTableWithUserIdPoolIdAndStartTime(@PathVariable Long userId,
-      @PathVariable Long poolId, @PathVariable int startTime) {
-    return poolTableService.bookPoolTableWithUserIdPoolIdAndStartTime(userId, poolId, startTime);
+      @PathVariable Long poolId, @PathVariable int startTime, @PathVariable String bookingDate) {
+    return poolTableService.bookPoolTableWithUserIdPoolIdAndStartTime(userId, poolId, startTime,bookingDate);
   }
 }

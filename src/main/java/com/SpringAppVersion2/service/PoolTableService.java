@@ -12,6 +12,9 @@ import com.SpringAppVersion2.spring.dao.BuildingRepository;
 import com.SpringAppVersion2.spring.dao.PoolTableRepository;
 import com.SpringAppVersion2.spring.dao.UserPoolTableRepository;
 import com.SpringAppVersion2.spring.dao.UserRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +43,25 @@ public class PoolTableService {
 
   /*This method returns all available
    pool Tables with time slot as input*/
-  public List<PoolTableResultObject> getAllAvailablePoolTablesWithInputTime(int startTime) {
+  public List<PoolTableResultObject> getAllAvailablePoolTablesWithInputTime(int startTime,String bookingDate) {
 
     List<PoolTable> poolTableList = poolTableRepository.findAll();
 
     List<PoolTableResultObject> poolTableResultObjects = new ArrayList<>();
+    Date bookingDateParsed = null;
+    try{
+      SimpleDateFormat formatter3=new SimpleDateFormat("MM-dd-yyyy");
+      bookingDateParsed = formatter3.parse(bookingDate);
+    }catch(ParseException e) {
+      e.printStackTrace();
+    }
 
     if (poolTableList.isEmpty()) {
       logger.info("NO RECORDS FOUND FOR : Start time : [ " + startTime + "]");
       return Collections.emptyList();
     }
 
-    getPoolTableResultObjectListFromPoolTableList(poolTableList, poolTableResultObjects, startTime);
+    getPoolTableResultObjectListFromPoolTableList(poolTableList, poolTableResultObjects, startTime, bookingDateParsed);
 
     return poolTableResultObjects;
   }
@@ -73,16 +83,24 @@ public class PoolTableService {
       return Collections.emptyList();
     }
 
-    getPoolTableResultObjectListFromPoolTableList(poolTableList, poolTableResultObjects, startTime);
+    //getPoolTableResultObjectListFromPoolTableList(poolTableList, poolTableResultObjects, startTime);
 
     return poolTableResultObjects;
   }
   /*
     This method books the pool table with userId, PoolId, and startTime
    */
-  public Result bookPoolTableWithUserIdPoolIdAndStartTime(Long userId, Long poolId, int startTime) {
+  public Result bookPoolTableWithUserIdPoolIdAndStartTime(Long userId, Long poolId, int startTime,String bookingDate) {
 
     Result result = new Result();
+
+    Date bookingDateParsed = null;
+    try{
+      SimpleDateFormat formatter3=new SimpleDateFormat("MM-dd-yyyy");
+      bookingDateParsed = formatter3.parse(bookingDate);
+    }catch(ParseException e) {
+      e.printStackTrace();
+    }
 
     PoolTable poolTable = poolTableRepository.getOne(poolId);
 
@@ -96,7 +114,7 @@ public class PoolTableService {
       result.setMessage(Message.CREATE_FAILURE);
     }
 
-    if (isRecordExists(poolTable, startTime)) {
+    if (isRecordExists(poolTable, startTime,bookingDateParsed)) {
       result.setMessage(Message.CREATE_FAILURE);
     }
 
@@ -104,7 +122,7 @@ public class PoolTableService {
       return result;
     } else {
 
-      UserPoolTable userPoolTable = saveUserPoolTable(user, poolTable,startTime);
+      UserPoolTable userPoolTable = saveUserPoolTable(user, poolTable,startTime,bookingDateParsed);
 
       if (userPoolTable == null) {
         result.setMessage(Message.CREATE_FAILURE);
@@ -116,7 +134,7 @@ public class PoolTableService {
     }
   }
 
-  private UserPoolTable saveUserPoolTable(User user, PoolTable poolTable,int startTime) {
+  private UserPoolTable saveUserPoolTable(User user, PoolTable poolTable,int startTime,Date bookingDate) {
     UserPoolTable userPoolTable = new UserPoolTable();
 
     UserPoolTableKey userPoolTableKey = new UserPoolTableKey();
@@ -127,6 +145,8 @@ public class PoolTableService {
     userPoolTable.setUser(user);
     userPoolTable.setId(userPoolTableKey);
     userPoolTable.setStartTime(startTime);
+    userPoolTable.setBookingDate(bookingDate);
+
     int endTime = (startTime + 1) > 12 ? (startTime+1)-12 : (startTime+1);
     userPoolTable.setEndTime(endTime);
 
@@ -136,9 +156,9 @@ public class PoolTableService {
 
   }
 
-  private boolean isRecordExists(PoolTable poolTable, int startTime) {
+  private boolean isRecordExists(PoolTable poolTable, int startTime, Date bookingDate) {
     List<UserPoolTable> userPoolTable = userPoolTableRepository
-        .findByPoolTableAndStartTime(poolTable, startTime);
+        .findByPoolTableAndStartTimeAndBookingDate(poolTable, startTime, bookingDate);
 
     if (userPoolTable.isEmpty()) {
       return false;
@@ -147,10 +167,12 @@ public class PoolTableService {
   }
 
   private void getPoolTableResultObjectListFromPoolTableList(List<PoolTable> poolTableList,
-      List<PoolTableResultObject> poolTableResultObjects, int startTime) {
+      List<PoolTableResultObject> poolTableResultObjects, int startTime, Date bookingDateParsed) {
+
     for (PoolTable poolTable : poolTableList) {
+
       List<UserPoolTable> resultPoolTableList = userPoolTableRepository
-          .findByPoolTableAndStartTime(poolTable, startTime);
+          .findByPoolTableAndStartTimeAndBookingDate(poolTable, startTime,bookingDateParsed);
 
       if (resultPoolTableList.isEmpty()) {
         poolTableResultObjects.add(getPoolTableResultObject(poolTable));

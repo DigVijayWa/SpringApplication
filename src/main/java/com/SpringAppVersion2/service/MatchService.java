@@ -98,15 +98,15 @@ public class MatchService {
   }
 
   //this method returns all the matches related to the userId
-  public List<MatchResultObject> displayAllMatches(Long userId) {
+  public List<MatchResultObject> displayAllMatches(String userName) {
 
     List<MatchResultObject> matchResultObjectList = new ArrayList<>();
 
-    if (userRepository.findById(userId) == null) {
+    if (userRepository.findByUserName(userName) == null) {
 
       return matchResultObjectList;
     } else {
-      Optional<User> user = userRepository.findById(userId);
+      Optional<User> user = userRepository.findByUserName(userName);
 
       List<UserMatch> userMatchList = userMatchRepository.findByUser(user.get());
 

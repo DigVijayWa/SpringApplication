@@ -1,5 +1,6 @@
 package com.SpringAppVersion2.model.bean;
 
+import java.util.Date;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -28,6 +29,9 @@ public class UserPoolTable implements Serializable {
 
     @Column(name = "end_time")
     int endTime;
+
+    @Column(name = "booking_date")
+    Date bookingDate;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -60,6 +64,10 @@ public class UserPoolTable implements Serializable {
     public int getStartTime() {
         return startTime;
     }
+
+    public Date getBookingDate() { return bookingDate; }
+
+    public void setBookingDate(Date bookingDate) { this.bookingDate = bookingDate; }
 
     public void setStartTime(int startTime) {
         this.startTime = startTime;

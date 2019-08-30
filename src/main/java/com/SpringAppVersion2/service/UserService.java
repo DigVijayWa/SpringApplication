@@ -1,7 +1,10 @@
 package com.SpringAppVersion2.service;
 
 import com.SpringAppVersion2.model.bean.User;
+import com.SpringAppVersion2.model.bean.UserPoolTable;
+import com.SpringAppVersion2.result.BookedPoolTableResultObject;
 import com.SpringAppVersion2.result.UserResultObject;
+import com.SpringAppVersion2.spring.dao.UserPoolTableRepository;
 import com.SpringAppVersion2.spring.dao.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,9 @@ public class UserService {
 
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  UserPoolTableRepository userPoolTableRepository;
 
   public UserResultObject findByUserName(String userName) {
     Optional<User> user = userRepository.findByUserName(userName);
@@ -39,6 +45,35 @@ public class UserService {
       }
     }
     return userResultObjects;
+  }
+
+  public List<BookedPoolTableResultObject> getAllBookedPoolTablesByUserName(String userName) {
+    Optional<User> user = userRepository.findByUserName(userName);
+    List<BookedPoolTableResultObject> bookedPoolTableResultObjectList = new ArrayList<>();
+
+    if (user != null) {
+      List<UserPoolTable> userPoolTableList = userPoolTableRepository.findByUser(user.get());
+
+      for(UserPoolTable userPoolTable : userPoolTableList) {
+
+        bookedPoolTableResultObjectList.add(mapUserPoolTableToBookedPoolTable(userPoolTable));
+      }
+
+    }
+    return bookedPoolTableResultObjectList;
+  }
+
+  private BookedPoolTableResultObject mapUserPoolTableToBookedPoolTable(UserPoolTable userPoolTable) {
+    BookedPoolTableResultObject bookedPoolTableResultObject = new BookedPoolTableResultObject();
+
+    bookedPoolTableResultObject.setBookingDate(userPoolTable.getBookingDate().toString());
+    bookedPoolTableResultObject.setBuildingName(userPoolTable.getPoolTable().getBuilding().getBuildingName());
+    bookedPoolTableResultObject.setPoolName(userPoolTable.getPoolTable().getPoolName());
+    bookedPoolTableResultObject.setFloorNo(userPoolTable.getPoolTable().getFloorNo());
+    bookedPoolTableResultObject.setStartTime(userPoolTable.getStartTime());
+    bookedPoolTableResultObject.setEndTime(userPoolTable.getEndTime());
+
+    return bookedPoolTableResultObject;
   }
   private UserResultObject setUserResultObject(User user) {
 

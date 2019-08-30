@@ -1,6 +1,7 @@
 package com.SpringAppVersion2.controller;
 
 import com.SpringAppVersion2.model.bean.User;
+import com.SpringAppVersion2.result.BookedPoolTableResultObject;
 import com.SpringAppVersion2.result.UserResultObject;
 import com.SpringAppVersion2.service.UserService;
 import java.util.List;
@@ -26,5 +27,12 @@ public class UserController {
   @ResponseBody
   public List<UserResultObject> getAllUsers() {
     return userService.getAllUsers();
+  }
+
+  //api to display all the pool tables booked by the given user.
+  @RequestMapping(value = "/api/user/get-booked-pool-tables-for-user/{userName}")
+  @ResponseBody
+  public List<BookedPoolTableResultObject> getAllPoolTablesBookedByTheUser(@PathVariable String userName) {
+    return userService.getAllBookedPoolTablesByUserName(userName);
   }
 }
