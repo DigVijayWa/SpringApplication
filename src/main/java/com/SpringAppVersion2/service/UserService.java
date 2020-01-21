@@ -1,10 +1,10 @@
 package com.SpringAppVersion2.service;
 
 import com.SpringAppVersion2.model.bean.User;
-import com.SpringAppVersion2.model.bean.UserPoolTable;
+import com.SpringAppVersion2.model.bean.UserGameObject;
 import com.SpringAppVersion2.result.BookedPoolTableResultObject;
 import com.SpringAppVersion2.result.UserResultObject;
-import com.SpringAppVersion2.spring.dao.UserPoolTableRepository;
+import com.SpringAppVersion2.spring.dao.UserGameObjectRepository;
 import com.SpringAppVersion2.spring.dao.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class UserService {
   UserRepository userRepository;
 
   @Autowired
-  UserPoolTableRepository userPoolTableRepository;
+  UserGameObjectRepository userGameObjectRepository;
 
   public UserResultObject findByUserName(String userName) {
     Optional<User> user = userRepository.findByUserName(userName);
@@ -52,9 +52,9 @@ public class UserService {
     List<BookedPoolTableResultObject> bookedPoolTableResultObjectList = new ArrayList<>();
 
     if (user != null) {
-      List<UserPoolTable> userPoolTableList = userPoolTableRepository.findByUser(user.get());
+      List<UserGameObject> userPoolTableList = userGameObjectRepository.findByUser(user.get());
 
-      for(UserPoolTable userPoolTable : userPoolTableList) {
+      for(UserGameObject userPoolTable : userPoolTableList) {
 
         bookedPoolTableResultObjectList.add(mapUserPoolTableToBookedPoolTable(userPoolTable));
       }
@@ -63,13 +63,13 @@ public class UserService {
     return bookedPoolTableResultObjectList;
   }
 
-  private BookedPoolTableResultObject mapUserPoolTableToBookedPoolTable(UserPoolTable userPoolTable) {
+  private BookedPoolTableResultObject mapUserPoolTableToBookedPoolTable(UserGameObject userPoolTable) {
     BookedPoolTableResultObject bookedPoolTableResultObject = new BookedPoolTableResultObject();
 
     bookedPoolTableResultObject.setBookingDate(userPoolTable.getBookingDate().toString());
-    bookedPoolTableResultObject.setBuildingName(userPoolTable.getPoolTable().getBuilding().getBuildingName());
-    bookedPoolTableResultObject.setPoolName(userPoolTable.getPoolTable().getPoolName());
-    bookedPoolTableResultObject.setFloorNo(userPoolTable.getPoolTable().getFloorNo());
+    bookedPoolTableResultObject.setBuildingName(userPoolTable.getGameObject().getBuilding().getBuildingName());
+    bookedPoolTableResultObject.setGameObjectName(userPoolTable.getGameObject().getGameObjectName());
+    bookedPoolTableResultObject.setFloorNo(userPoolTable.getGameObject().getFloorNo());
     bookedPoolTableResultObject.setStartTime(userPoolTable.getStartTime());
     bookedPoolTableResultObject.setEndTime(userPoolTable.getEndTime());
 

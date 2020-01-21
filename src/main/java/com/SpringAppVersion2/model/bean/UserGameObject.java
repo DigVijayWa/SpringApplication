@@ -5,14 +5,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "sys_user_pool_table")
-public class UserPoolTable implements Serializable {
+@Table(name = "sys_user_game_object")
+public class UserGameObject implements Serializable {
 
     private static final long serialVersionUID = 8557843374441515748L;
 
 
     @EmbeddedId
-    UserPoolTableKey id;
+    UserGameObjectKey id;
 
     @ManyToOne
     @MapsId("user_id")
@@ -20,9 +20,9 @@ public class UserPoolTable implements Serializable {
     User user;
 
     @ManyToOne
-    @MapsId("pool_id")
-    @JoinColumn(name = "pool_id")
-    PoolTable poolTable;
+    @MapsId("game_id")
+    @JoinColumn(name = "game_id")
+    GameObject gameObject;
 
     @Column(name = "start_time")
     int startTime;
@@ -37,11 +37,11 @@ public class UserPoolTable implements Serializable {
         return serialVersionUID;
     }
 
-    public UserPoolTableKey getId() {
+    public UserGameObjectKey getId() {
         return id;
     }
 
-    public void setId(UserPoolTableKey id) {
+    public void setId(UserGameObjectKey id) {
         this.id = id;
     }
 
@@ -53,12 +53,12 @@ public class UserPoolTable implements Serializable {
         this.user = user;
     }
 
-    public PoolTable getPoolTable() {
-        return poolTable;
+    public GameObject getGameObject() {
+        return gameObject;
     }
 
-    public void setPoolTable(PoolTable poolTable) {
-        this.poolTable = poolTable;
+    public void setGameObject(GameObject gameObject) {
+        this.gameObject = gameObject;
     }
 
     public int getStartTime() {

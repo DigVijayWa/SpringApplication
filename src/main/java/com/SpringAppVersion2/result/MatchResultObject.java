@@ -19,6 +19,16 @@ public class MatchResultObject {
 
   private char winnerFlag;
 
+  private Long createdBy;
+
+  public Long getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(Long createdBy) {
+    this.createdBy = createdBy;
+  }
+
   public char getWinnerFlag() { return winnerFlag; }
 
   public void setWinnerFlag(char winnerFlag) { this.winnerFlag = winnerFlag; }

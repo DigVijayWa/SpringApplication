@@ -1,6 +1,6 @@
 package com.SpringAppVersion2.result;
 
-public class BookedPoolTableResultObject extends PoolTableResultObject {
+public class BookedPoolTableResultObject extends GameObjectResultObject {
   String bookingDate;
 
   public int startTime;

@@ -282,6 +282,7 @@ public class MatchService {
     matchResultObject.setTeamTwo(match.getTeamTwo());
     matchResultObject.setMatchType(match.getMatchType());
     matchResultObject.setWinnerTeam(match.getWinnerTeam());
+    matchResultObject.setCreatedBy(match.getCreatedBy());
 
     return matchResultObject;
   }

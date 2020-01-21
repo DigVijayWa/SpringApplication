@@ -5,12 +5,12 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class UserPoolTableKey implements Serializable {
+public class UserGameObjectKey implements Serializable {
 
     private static final long serialVersionUID = -4570797692426852060L;
 
-    @Column(name="pool_id")
-    Long poolId;
+    @Column(name="game_object_id")
+    Long gameObjectId;
 
     @Column(name="user_id")
     Long userId;
@@ -29,12 +29,12 @@ public class UserPoolTableKey implements Serializable {
         return serialVersionUID;
     }
 
-    public Long getPoolId() {
-        return poolId;
+    public Long getGameObjectId() {
+        return gameObjectId;
     }
 
-    public void setPoolId(Long poolId) {
-        this.poolId = poolId;
+    public void setGameObjectId(Long gameObjectId) {
+        this.gameObjectId = gameObjectId;
     }
 
     public Long getUserId() {

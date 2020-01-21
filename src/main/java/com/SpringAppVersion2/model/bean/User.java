@@ -27,7 +27,7 @@ public class User implements Serializable {
   private int totalBookingsPossible;
 
   @OneToMany(mappedBy = "user")
-  Set<UserPoolTable> userPoolTables;
+  Set<UserGameObject> userGameObjects;
 
   @ManyToMany
   @JoinTable(
@@ -88,13 +88,13 @@ public class User implements Serializable {
     this.userEmail = userEmail;
   }
 
-  public Set<UserPoolTable> getUserPoolTables() {
-    return userPoolTables;
+  public Set<UserGameObject> getUserPoolTables() {
+    return userGameObjects;
   }
 
   public void setUserPoolTables(
-      Set<UserPoolTable> userPoolTables) {
-    this.userPoolTables = userPoolTables;
+      Set<UserGameObject> userGameObjects) {
+    this.userGameObjects = userGameObjects;
   }
 
 

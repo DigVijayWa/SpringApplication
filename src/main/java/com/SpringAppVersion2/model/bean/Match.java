@@ -37,6 +37,9 @@ public class Match implements Serializable {
   @Column(name="winner_team")
   private String winnerTeam;
 
+  @Column(name="created_by")
+  private Long createdBy;
+
   public Match() {
 
   }
@@ -107,4 +110,17 @@ public class Match implements Serializable {
   public void setWinnerTeam(String winnerTeam) {
     this.winnerTeam = winnerTeam;
   }
+
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
+
+  public Long getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(Long user_id) {
+    this.createdBy = createdBy;
+  }
+
 }

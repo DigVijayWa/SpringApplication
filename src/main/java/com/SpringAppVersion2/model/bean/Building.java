@@ -24,7 +24,7 @@ public class Building implements Serializable {
   private int floorCount;
 
   @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  private Set<PoolTable> poolTables;
+  private Set<GameObject> gameObjects;
 
 
   public Long getId() {
@@ -63,11 +63,11 @@ public class Building implements Serializable {
     return serialVersionUID;
   }
 
-  public Set<PoolTable> getPoolTables() {
-    return poolTables;
+  public Set<GameObject> getPoolTables() {
+    return gameObjects;
   }
 
-  public void setPoolTables(Set<PoolTable> poolTables) {
-    this.poolTables = poolTables;
+  public void setPoolTables(Set<GameObject> gameObjects) {
+    this.gameObjects = gameObjects;
   }
 }
