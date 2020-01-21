@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @ComponentScan("com.SpringApplicationVersion2.spring")
 @PropertySource("classpath:application.properties")
-@Profile("local")
 public class DataSourceConfig implements WebMvcConfigurer {
 
   @Autowired

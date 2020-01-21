@@ -7,11 +7,13 @@ import com.SpringAppVersion2.payload.ApiResponse;
 import com.SpringAppVersion2.payload.JwtAuthenticationResponse;
 import com.SpringAppVersion2.payload.LoginRequest;
 import com.SpringAppVersion2.payload.SignUpRequest;
+import com.SpringAppVersion2.service.JavaCustomMailSender;
 import com.SpringAppVersion2.spring.dao.RoleRepository;
 import com.SpringAppVersion2.spring.dao.UserRepository;
 import com.SpringAppVersion2.spring.security.JwtTokenProvider;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Date;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,9 @@ public class AuthController {
 
   @Autowired
   JwtTokenProvider tokenProvider;
+
+  @Autowired
+  JavaCustomMailSender javaCustomMailSender;
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

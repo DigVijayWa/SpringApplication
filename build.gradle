@@ -44,13 +44,24 @@ cfConfig {
 	environment = ["JAVA_OPTS": "-Djava.security.egd=file:/dev/./urandom", "SPRING_PROFILES_ACTIVE": "cf"]
 	services  = ["instance001"]
 }
-
+task fatJar(type : Jar) {
+	manifest {
+		attributes(
+				'Main-Class': 'com.SpringAppVersion2.SpringApplicationVersion2'
+		)
+	}
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.0.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.1.7.RELEASE'
+
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
 	compile 'commons-lang:commons-lang:2.3'
 
